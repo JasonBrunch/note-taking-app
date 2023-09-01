@@ -3,28 +3,60 @@ import NavBar from './NavBar';
 import SideMenu from './SideMenu';
 import NoteEditor from './NoteEditor';
 
+
 function App() {
- 
+  
 
   const initialNotes = [
     { id: 1, title: 'Note 1', content: 'Content for note 1', category: 'JavaScript' },
     { id: 2, title: 'Note 2', content: 'Content for note 2', category: 'React' },
-    { id: 3, title: 'Note 3', content: 'Content for note 3', category: 'JavaScript' }
+    { id: 3, title: 'Note 3', content: 'Content for note 3', category: 'JavaScript' },
+    {id:4, title: 'note 4', content: 'Content for note4', category: 'React'}
   ];
 
   const [notes, setNotes] = useState(initialNotes);
   const [activeNote, setActiveNote] = useState(null);
+  const [editing, setEditing] = useState(false);
+  const [noteContent, setNoteContent] = useState('');
+  const [noteTitle, setNoteTitle] = useState('');
+
+    
 
   const handleNoteClick = (note) => {
     setActiveNote(note);
+    setNoteTitle(note.title);
+    setNoteContent(note.content);
+    setEditing(false);
   };
-  const updateActiveNote = (updatedNote) => {
+  const handleSaveClick = (updatedNote) => {
     setNotes(prevNotes => {
       return prevNotes.map(note => {
         return note.id === updatedNote.id ? updatedNote : note;
       });
     });
+    setEditing(false);
   };
+  const addNewNote = () => {
+    console.log("Creating new note");
+
+   //Get the max ID of the existing notes:
+   const maxId = Math.max(...notes.map(note => note.id));
+
+   const newNote = {
+    id: maxId +1,
+    title: 'New Note',
+    content: '',
+    category: 'Uncategorized'
+   }
+   setNotes([...notes, newNote]);
+   //Tell the editor to set as active note
+   setActiveNote(newNote);
+  }
+
+  
+
+
+
 
   return (
     <div className='App'>
@@ -32,19 +64,25 @@ function App() {
       <div className='container-fluid'>
         <div className="row">
           {/* Left Side Menu */}
-          <div className="col-lg-3 col-md-3 col-sm-12">
-          <SideMenu notes={notes} onNoteClick={handleNoteClick} />
+          <div className="col-lg-2 col-md-2 col-sm-12">
+          <SideMenu notes={notes} onNoteClick={handleNoteClick} onAddNote={addNewNote} />
           </div>
 
           {/* Note Editor */}
-          <div className='col-lg-6 col-md-6 col-sm-12'>
-          <NoteEditor activeNote={activeNote} updateActiveNote={updateActiveNote}/>
+          <div className='col-lg-10 col-md-10 col-sm-12'>
+            <NoteEditor 
+            activeNote={activeNote} 
+            noteContent={noteContent}
+            noteTitle={noteTitle}
+            setNoteContent={setNoteContent}
+            setNoteTitle={setNoteTitle}
+            editing={editing}
+            setEditing={setEditing}
+            handleSaveClick={handleSaveClick}
+            />
           </div>
 
-          {/* Right Side Menu */}
-          <div className="col-lg-3 col-md-3 col-sm-12">
-          <SideMenu notes={notes} onNoteClick={handleNoteClick} />
-          </div>
+          
         </div>
       </div>
     </div>

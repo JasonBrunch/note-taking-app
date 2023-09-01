@@ -1,40 +1,28 @@
 import React, { useState, useEffect } from 'react';
 
-const NoteEditor = ({ activeNote,updateActiveNote }) => {
-  const [editing, setEditing] = useState(false);
-  const [noteContent, setNoteContent] = useState('');
-  const [noteTitle, setNoteTitle] = useState('');
-
-  useEffect(() => {
-    if (activeNote) {
-      setNoteTitle(activeNote.title);
-      setNoteContent(activeNote.content);
-    } else {
-      setNoteTitle('');
-      setNoteContent('Select a note to display its content.');
-    }
-  }, [activeNote]);
+const NoteEditor = ({ activeNote, noteContent, noteTitle, setNoteContent, setNoteTitle, editing, setEditing, handleSaveClick }) => {
 
   const handleEditClick = () => {
     setEditing(true);
   };
 
-  const handleSaveClick = () => {
-    const updatedNote = { ...activeNote, title: noteTitle, content: noteContent };
-    
-    // Update local state first
-    setNoteTitle(updatedNote.title);
-    setNoteContent(updatedNote.content);
-  
-    // Then update the parent state
-    updateActiveNote(updatedNote);
-  
-    setEditing(false);
-  };
-
   const handleChange = (e) => {
     setNoteContent(e.target.value);
   };
+
+  const saveNote = () => {
+    const updatedNote = { ...activeNote, title: noteTitle, content: noteContent };
+    handleSaveClick(updatedNote);
+  };
+
+  useEffect(() => {
+    if (activeNote) {
+      setNoteTitle(activeNote.title);
+      setNoteContent(activeNote.content);
+    }
+  }, [activeNote]);
+
+
 
   return (
     <div>
@@ -62,11 +50,11 @@ const NoteEditor = ({ activeNote,updateActiveNote }) => {
                 onChange={handleChange}
               ></textarea>
               <button 
-                className="btn btn-primary mt-2"
-                onClick={handleSaveClick}
-              >
-                Save
-              </button>
+  className="btn btn-primary mt-2"
+  onClick={saveNote} // Change here
+>
+  Save
+</button>
             </div>
           ) : (
             <div>
@@ -83,5 +71,5 @@ const NoteEditor = ({ activeNote,updateActiveNote }) => {
       )}
     </div>
   );
-          }
+}
 export default NoteEditor;

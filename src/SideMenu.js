@@ -1,8 +1,7 @@
 import React from 'react';
 
-const SideMenu = ({ notes, onNoteClick }) => {
+const SideMenu = ({ notes, onNoteClick, onAddNote }) => {
   
-  // Group the notes by category
   const groupedNotes = notes.reduce((acc, note) => {
     if (!acc[note.category]) {
       acc[note.category] = [];
@@ -11,18 +10,20 @@ const SideMenu = ({ notes, onNoteClick }) => {
     return acc;
   }, {});
   
+ 
   return (
     <div>
-      {
+    <button className="btn btn-primary mb-3" onClick={onAddNote}>New Note</button>
+    {
         Object.keys(groupedNotes).map((category, index) => (
           <div key={index}>
-            <h1>{category}</h1>
-            <ul className="list-group">
-              {
+            <div className="fw-bold fs-5 mb-2">{category}</div> {/* Updated here */}
+            <ul className="list-group list-group-flush"> {/* Updated here */}
+            {
                 groupedNotes[category].map((note) => (
                   <li 
                     key={note.id} 
-                    className="list-group-item" 
+                    className="list-group-item border-0" 
                     onClick={() => onNoteClick(note)}
                   >
                     {note.title}

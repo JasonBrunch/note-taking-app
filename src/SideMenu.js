@@ -1,17 +1,40 @@
 import React from 'react';
 
-const SideMenu = () => {
-    return(
-        <div>
+const SideMenu = ({ notes, onNoteClick }) => {
+  
+  // Group the notes by category
+  const groupedNotes = notes.reduce((acc, note) => {
+    if (!acc[note.category]) {
+      acc[note.category] = [];
+    }
+    acc[note.category].push(note);
+    return acc;
+  }, {});
+  
+  return (
+    <div>
+      {
+        Object.keys(groupedNotes).map((category, index) => (
+          <div key={index}>
+            <h1>{category}</h1>
             <ul className="list-group">
-                <li className="list-group-item">An item</li>
-                <li className="list-group-item">A second item</li>
-                <li className="list-group-item">A third item</li>
-                <li className="list-group-item">A fourth item</li>
-                <li className="list-group-item">And a fifth one</li>
+              {
+                groupedNotes[category].map((note) => (
+                  <li 
+                    key={note.id} 
+                    className="list-group-item" 
+                    onClick={() => onNoteClick(note)}
+                  >
+                    {note.title}
+                  </li>
+                ))
+              }
             </ul>
-        </div>
-    );
+          </div>
+        ))
+      }
+    </div>
+  );
 };
 
 export default SideMenu;

@@ -45,7 +45,7 @@ const EditMode = ({ localNote, setLocalNote, saveNote }) => {
   };
   const DisplayMode = ({ localNote, handleEditClick }) => (
     <div>
-      <h2 style={{ textAlign: 'left' }}>{localNote.title}</h2>
+      <h1 style={{ textAlign: 'left' }}>{localNote.title}</h1>
       <p>{localNote.content}</p>
       <button className="btn btn-secondary" onClick={handleEditClick}>
         Edit

@@ -19,6 +19,7 @@ function App() {
   const [editing, setEditing] = useState(false);
   const [noteContent, setNoteContent] = useState('');
   const [noteTitle, setNoteTitle] = useState('');
+  const [categories, setCategories] = useState(['JavaScript', 'React', 'Uncategorized']);
  
 
 
@@ -52,6 +53,9 @@ function App() {
     //Tell the editor to set as active note
     setActiveNote(newNote);
   }
+  const addNewCategory = (newCategory) => {
+    setCategories([...categories, newCategory]);
+  };
 
   return (
     
@@ -64,7 +68,13 @@ function App() {
           {/* Left Side Menu */}
           <div className="col-lg-2 col-md-2 col-sm-12">
           <React.StrictMode>
-          <SideMenu notes={notes} onNoteClick={handleNoteClick} onAddNote={addNewNote} />
+          <SideMenu 
+  notes={notes} 
+  categories={categories} 
+  onNoteClick={handleNoteClick} 
+  onAddNote={addNewNote}
+  onAddCategory={addNewCategory} 
+/>
           </React.StrictMode>
           </div>
 

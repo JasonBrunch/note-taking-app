@@ -8,7 +8,7 @@ const NavBar = () =>{
             
 
                 {/*LOGO IN TOP LEFT CORNER*/}
-                <a className="navbar-brand" href="#">Navbar</a>
+                <a className="navbar-brand" href="#">JasonBunce</a>
 
                 {/*Toggler for mobile screen. Appears when small screen. Toggles the navbarItems*/}
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,12 +27,12 @@ const NavBar = () =>{
                     </ul>
 
                     {/* Search Form */}
-<div className="position-absolute" style={{ left: '50%', transform: 'translateX(-50%)' }}>
-    <form className="d-flex" role="search">
-        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-        <button className="btn btn-outline-success" type="submit">Search</button>
-    </form>
-</div>
+                    <div className="position-absolute" style={{ left: '50%', transform: 'translateX(-50%)' }}>
+                        <form className="d-flex" role="search">
+                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                            <button className="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
 
                     {/* GitHub Icon aligned to far right*/}
                 <div className="ms-auto">

@@ -1,75 +1,94 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import Quill from 'quill';
 
-const NoteEditor = ({ activeNote, noteContent, noteTitle, setNoteContent, setNoteTitle, editing, setEditing, handleSaveClick }) => {
+
+
+const EditMode = ({ localNote, setLocalNote, saveNote }) => {
+    const quillRef = useRef(null);
+  
+    useEffect(() => {
+        // Remove any existing Quill instances
+        if (quillRef.current && quillRef.current.querySelector('.ql-toolbar')) {
+          quillRef.current.innerHTML = '';
+        }
+      
+        const quill = new Quill(quillRef.current, {
+          theme: 'snow',
+        });
+        
+        // Initialize Quill with combinedText
+        const combinedText = localNote ? `${localNote.title}\n${localNote.content}` : "";
+        quill.setText(combinedText);
+      
+        quill.on('text-change', () => {
+          const fullText = quill.getText();
+          const lines = fullText.split('\n');
+          const title = lines[0] || "";
+          const content = lines.slice(1).join('\n').trim() || "";
+      
+          setLocalNote({
+            ...localNote,
+            title,
+            content,
+          });
+        });
+      }, [localNote]);
+  
+    return (
+      <div>
+        <div ref={quillRef}></div>
+        <button className="btn btn-primary mt-2" onClick={saveNote}>
+          Save
+        </button>
+      </div>
+    );
+  };
+  const DisplayMode = ({ localNote, handleEditClick }) => (
+    <div>
+      <h2 style={{ textAlign: 'left' }}>{localNote.title}</h2>
+      <p>{localNote.content}</p>
+      <button className="btn btn-secondary" onClick={handleEditClick}>
+        Edit
+      </button>
+    </div>
+  );
+
+
+const NoteEditor = ({ activeNote, editing, setEditing, handleSaveClick }) => {
+
+  // Local state for editing note
+  const [localNote, setLocalNote] = useState(null);
 
   const handleEditClick = () => {
     setEditing(true);
   };
 
-  const handleChange = (e) => {
-    setNoteContent(e.target.value);
-  };
-
   const saveNote = () => {
-    const updatedNote = { ...activeNote, title: noteTitle, content: noteContent };
-    handleSaveClick(updatedNote);
+    handleSaveClick(localNote);
+    setEditing(false);
   };
 
   useEffect(() => {
     if (activeNote) {
-      setNoteTitle(activeNote.title);
-      setNoteContent(activeNote.content);
+      setLocalNote(activeNote);
     }
   }, [activeNote]);
 
-
-
   return (
     <div>
-      {activeNote === null ? (
+      {localNote === null ? (
         <p>Select a note to display its content.</p>
       ) : (
         <div>
           {editing ? (
-            <input
-              type="text"
-              className="form-control"
-              value={noteTitle}
-              onChange={(e) => setNoteTitle(e.target.value)}
-            />
+            <EditMode localNote={localNote} setLocalNote={setLocalNote} saveNote={saveNote} />
           ) : (
-            <h2 style={{ textAlign: 'left' }}>{noteTitle}</h2>
-          )}
-  
-          {editing ? (
-            <div>
-              <textarea 
-                className="form-control"
-                rows="10" 
-                value={noteContent}
-                onChange={handleChange}
-              ></textarea>
-              <button 
-  className="btn btn-primary mt-2"
-  onClick={saveNote} // Change here
->
-  Save
-</button>
-            </div>
-          ) : (
-            <div>
-              <p>{noteContent}</p>
-              <button 
-                className="btn btn-secondary"
-                onClick={handleEditClick}
-              >
-                Edit
-              </button>
-            </div>
+            <DisplayMode localNote={localNote} handleEditClick={handleEditClick} />
           )}
         </div>
       )}
     </div>
   );
-}
+};
+
 export default NoteEditor;

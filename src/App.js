@@ -6,19 +6,22 @@ import NoteEditor from './NoteEditor';
 
 function App() {
   
-
+  //PLACEHOLDER DATA FOR NOTES
   const initialNotes = [
     { id: 1, title: 'Note 1', content: 'Content for note 1', category: 'JavaScript' },
     { id: 2, title: 'Note 2', content: 'Content for note 2', category: 'React' },
     { id: 3, title: 'Note 3', content: 'Content for note 3', category: 'JavaScript' },
     {id:4, title: 'note 4', content: 'Content for note4', category: 'React'}
   ];
-
+  //STATE MANAGEMENT
   const [notes, setNotes] = useState(initialNotes);
   const [activeNote, setActiveNote] = useState(null);
   const [editing, setEditing] = useState(false);
   const [noteContent, setNoteContent] = useState('');
   const [noteTitle, setNoteTitle] = useState('');
+ 
+
+
 
     
 
@@ -37,50 +40,45 @@ function App() {
     setEditing(false);
   };
   const addNewNote = () => {
-    console.log("Creating new note");
-
-   //Get the max ID of the existing notes:
-   const maxId = Math.max(...notes.map(note => note.id));
-
-   const newNote = {
-    id: maxId +1,
-    title: 'New Note',
-    content: '',
-    category: 'Uncategorized'
-   }
-   setNotes([...notes, newNote]);
-   //Tell the editor to set as active note
-   setActiveNote(newNote);
+    //Get the max ID of the existing notes:
+    const maxId = Math.max(...notes.map(note => note.id));
+    const newNote = {
+      id: maxId +1,
+      title: 'New Note',
+      content: '',
+      category: 'Uncategorized'
+    }
+    setNotes([...notes, newNote]);
+    //Tell the editor to set as active note
+    setActiveNote(newNote);
   }
 
-  
-
-
-
-
   return (
+    
     <div className='App'>
-      <NavBar />
+      <React.StrictMode>
+        <NavBar />
+      </React.StrictMode>
       <div className='container-fluid'>
         <div className="row">
           {/* Left Side Menu */}
           <div className="col-lg-2 col-md-2 col-sm-12">
+          <React.StrictMode>
           <SideMenu notes={notes} onNoteClick={handleNoteClick} onAddNote={addNewNote} />
+          </React.StrictMode>
           </div>
 
           {/* Note Editor */}
+          
           <div className='col-lg-10 col-md-10 col-sm-12'>
-            <NoteEditor 
+          
+          <NoteEditor 
             activeNote={activeNote} 
-            noteContent={noteContent}
-            noteTitle={noteTitle}
-            setNoteContent={setNoteContent}
-            setNoteTitle={setNoteTitle}
             editing={editing}
             setEditing={setEditing}
             handleSaveClick={handleSaveClick}
-            />
-          </div>
+          />
+        </div>
 
           
         </div>

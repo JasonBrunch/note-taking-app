@@ -104,7 +104,7 @@ function App() {
     
     <div className='App'>
       <React.StrictMode>
-        <NavBar />
+        <NavBar notes={notes} handleNoteClick={handleNoteClick} />
       </React.StrictMode>
       <div className='container-fluid'>
         <div className="row">

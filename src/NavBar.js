@@ -1,7 +1,9 @@
 import React from 'react';
 import brandImage from './Assets/logoWhite.png';
+import SearchBar from './SearchBar';
 
-const NavBar = () =>{
+
+const NavBar = ({notes, handleNoteClick}) =>{
     return(
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             {/*CONTAINER FLUID MAKES NAV BAR SPAN THE FULL WIDTH */}
@@ -32,7 +34,7 @@ const NavBar = () =>{
                     {/* Search Form */}
                     <div className="position-absolute" style={{ left: '50%', transform: 'translateX(-50%)' }}>
                         <form className="d-flex" role="search">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                        <SearchBar notes={notes} handleNoteClick={handleNoteClick} />
                             <button className="btn btn-outline-success" type="submit">Search</button>
                         </form>
                     </div>

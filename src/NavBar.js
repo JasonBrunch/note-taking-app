@@ -1,4 +1,5 @@
 import React from 'react';
+import brandImage from './Assets/logoWhite.png';
 
 const NavBar = () =>{
     return(
@@ -8,7 +9,9 @@ const NavBar = () =>{
             
 
                 {/*LOGO IN TOP LEFT CORNER*/}
-                <a className="navbar-brand" href="#">JasonBunce</a>
+                <a className="navbar-brand" href="#">
+                    <img src={brandImage} alt="JasonBunce" height="60" />
+                </a>
 
                 {/*Toggler for mobile screen. Appears when small screen. Toggles the navbarItems*/}
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

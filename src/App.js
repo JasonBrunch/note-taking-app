@@ -4,6 +4,7 @@ import SideMenu from './SideMenu';
 import NoteEditor from './NoteEditor';
 
 
+
 function App() {
   
   //PLACEHOLDER DATA FOR NOTES
@@ -11,7 +12,35 @@ function App() {
     { id: 1, title: 'Note 1', content: 'Content for note 1', category: 'JavaScript' },
     { id: 2, title: 'Note 2', content: 'Content for note 2', category: 'React' },
     { id: 3, title: 'Note 3', content: 'Content for note 3', category: 'JavaScript' },
-    {id:4, title: 'note 4', content: 'Content for note4', category: 'React'}
+    {id:5, title: 'note 4', content: 'Content for note4', category: 'React'},
+    {id:6, title: 'note 5', content: 'Content for note4', category: 'React'},
+    {id:7, title: 'note 6', content: 'Content for note4', category: 'React'},
+    {id:8, title: 'note 7', content: 'Content for note4', category: 'React'},
+    {id:9, title: 'note 8', content: 'Content for note4', category: 'React'},
+    {id:10, title: 'note 9', content: 'Content for note4', category: 'React'},
+    {id:11, title: 'note 10', content: 'Content for note4', category: 'React'},
+    {id:12, title: 'note 11', content: 'Content for note4', category: 'React'},
+    {id:13, title: 'note 12', content: 'Content for note4', category: 'React'},
+    {id:14, title: 'note 13', content: 'Content for note4', category: 'React'},
+    {id:15, title: 'note 4', content: 'Content for note4', category: 'React'},
+    {id:16, title: 'note 5', content: 'Content for note4', category: 'React'},
+    {id:17, title: 'note 6', content: 'Content for note4', category: 'React'},
+    {id:18, title: 'note 7', content: 'Content for note4', category: 'React'},
+    {id:19, title: 'note 8', content: 'Content for note4', category: 'React'},
+    {id:20, title: 'note 9', content: 'Content for note4', category: 'React'},
+    {id:21, title: 'note 10', content: 'Content for note4', category: 'React'},
+    {id:22, title: 'note 11', content: 'Content for note4', category: 'React'},
+    {id:23, title: 'note 12', content: 'Content for note4', category: 'React'},
+    {id:24, title: 'note 4', content: 'Content for note4', category: 'React'},
+    {id:25, title: 'note 4', content: 'Content for note4', category: 'React'},
+    {id:26, title: 'note 5', content: 'Content for note4', category: 'React'},
+    {id:27, title: 'note 6', content: 'Content for note4', category: 'React'},
+    {id:28, title: 'note 7', content: 'Content for note4', category: 'React'},
+    {id:29, title: 'note 8', content: 'Content for note4', category: 'React'},
+    {id:30, title: 'note 9', content: 'Content for note4', category: 'React'},
+    {id:31, title: 'note 10', content: 'Content for note4', category: 'React'},
+    {id:32, title: 'note 11', content: 'Content for note4', category: 'React'},
+    {id:33, title: 'note 12', content: 'Content for note4', category: 'React'}
   ];
   //STATE MANAGEMENT
   const [notes, setNotes] = useState(initialNotes);
@@ -69,12 +98,12 @@ function App() {
           <div className="col-lg-2 col-md-2 col-sm-12">
           <React.StrictMode>
           <SideMenu 
-  notes={notes} 
-  categories={categories} 
-  onNoteClick={handleNoteClick} 
-  onAddNote={addNewNote}
-  onAddCategory={addNewCategory} 
-/>
+          notes={notes} 
+          categories={categories} 
+          onNoteClick={handleNoteClick} 
+          onAddNote={addNewNote}
+          onAddCategory={addNewCategory} 
+        />
           </React.StrictMode>
           </div>
 

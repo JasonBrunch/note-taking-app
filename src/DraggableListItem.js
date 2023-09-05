@@ -23,15 +23,15 @@ const DraggableListItem = ({ note, onNoteClick, changeNoteCategory }) => {
     };
     return (
         <li 
-    draggable
-    style={{ listStyleType: 'none' }} 
-    onClick={() => onNoteClick(note)}
-    onDragStart={handleDragStart}
-    onDragOver={handleDragOver}
-    onDrop={handleDrop}
->
-    {note.title}
-</li>
+            draggable
+            style={{ listStyleType: 'none', paddingLeft: '0.75em' }}//Added padding to line up with icons
+            onClick={() => onNoteClick(note)}
+            onDragStart={handleDragStart}
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
+        >
+            {note.title}
+        </li>
     );
 };
 

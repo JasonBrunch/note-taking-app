@@ -75,7 +75,7 @@ const NoteEditor = ({ activeNote, editing, setEditing, handleSaveClick , noteboo
   }, [activeNote]);
 
   return (
-    <div>
+    <div className="p-5">
     {/*DEFAULT NO NOTE SELECTED STATE*/}
       {localNote === null ? (
         <>
@@ -83,7 +83,7 @@ const NoteEditor = ({ activeNote, editing, setEditing, handleSaveClick , noteboo
           <h3>A collection of notes on web development.</h3>
         </>
       ) : (
-        <div>
+        <div >
           {editing ? (
             <EditMode localNote={localNote} setLocalNote={setLocalNote} saveNote={saveNote} />
           ) : (

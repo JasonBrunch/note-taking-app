@@ -6,6 +6,8 @@ import NoteEditor from './NoteEditor';
 
 
 function App() {
+  //PLACEHOLDER DATA FOR NOTEBOOK NAME
+  const notebookName = "Web Development Notes";
   
   //PLACEHOLDER DATA FOR NOTES
   const initialNotes = [
@@ -85,7 +87,19 @@ function App() {
   const addNewCategory = (newCategory) => {
     setCategories([...categories, newCategory]);
   };
-
+  const changeNoteCategory = (noteId, newCategory) => {
+    let updatedNotes = [...notes];
+    noteId = Number(noteId);  // Make sure noteId is a number
+    
+    for (let i = 0; i < updatedNotes.length; i++) {
+      if (updatedNotes[i].id === noteId) {
+        updatedNotes[i] = { ...updatedNotes[i], category: newCategory };
+        break;
+      }
+    }
+    
+    setNotes(updatedNotes);
+  };
   return (
     
     <div className='App'>
@@ -98,11 +112,12 @@ function App() {
           <div className="col-lg-2 col-md-2 col-sm-12">
           <React.StrictMode>
           <SideMenu 
-          notes={notes} 
-          categories={categories} 
-          onNoteClick={handleNoteClick} 
-          onAddNote={addNewNote}
-          onAddCategory={addNewCategory} 
+            notes={notes} 
+            categories={categories} 
+            onNoteClick={handleNoteClick} 
+            onAddNote={addNewNote}
+            onAddCategory={addNewCategory}
+            changeNoteCategory={changeNoteCategory} 
         />
           </React.StrictMode>
           </div>
@@ -116,6 +131,7 @@ function App() {
             editing={editing}
             setEditing={setEditing}
             handleSaveClick={handleSaveClick}
+            notebookName={notebookName}
           />
         </div>
 

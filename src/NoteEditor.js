@@ -54,7 +54,7 @@ const EditMode = ({ localNote, setLocalNote, saveNote }) => {
   );
 
 
-const NoteEditor = ({ activeNote, editing, setEditing, handleSaveClick }) => {
+const NoteEditor = ({ activeNote, editing, setEditing, handleSaveClick , notebookName}) => {
 
   // Local state for editing note
   const [localNote, setLocalNote] = useState(null);
@@ -76,8 +76,12 @@ const NoteEditor = ({ activeNote, editing, setEditing, handleSaveClick }) => {
 
   return (
     <div>
+    {/*DEFAULT NO NOTE SELECTED STATE*/}
       {localNote === null ? (
-        <p>Select a note to display its content.</p>
+        <>
+          <h1>{notebookName}</h1>
+          <h3>A collection of notes on web development.</h3>
+        </>
       ) : (
         <div>
           {editing ? (
@@ -92,3 +96,9 @@ const NoteEditor = ({ activeNote, editing, setEditing, handleSaveClick }) => {
 };
 
 export default NoteEditor;
+
+
+
+
+
+

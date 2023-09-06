@@ -1,8 +1,10 @@
 import DraggableListItem from './DraggableListItem';
 import Category from './Category';
+import React, { useState } from 'react';
 
 const SideMenu = ({ notes, categories, onNoteClick, onAddNote, onAddCategory, changeNoteCategory }) => {
   
+  const [sortMethod, setSortMethod] = useState("alphabetical");
   // Use 'reduce' to group notes by their category for easier rendering later.
   // We're reducing an array of notes into an object (acc) where the keys are 
   // the category names and the values are arrays of notes belonging to that category.
@@ -16,6 +18,20 @@ const SideMenu = ({ notes, categories, onNoteClick, onAddNote, onAddCategory, ch
     return acc;
   }, {});
 
+  // New code for sorting
+  Object.keys(groupedNotes).forEach((category) => {
+    groupedNotes[category].sort((a, b) => {
+      if (sortMethod === "alphabetical") {
+        return a.title.localeCompare(b.title);
+      } else if (sortMethod === "dateModified") {
+        return new Date(b.dateModified) - new Date(a.dateModified);
+      }
+      return 0;
+    });
+  });
+
+
+
     // Handles the drag-and-drop event to change note categories
     const handleCategoryDrop = (e) => {
     e.preventDefault();
@@ -28,9 +44,13 @@ const SideMenu = ({ notes, categories, onNoteClick, onAddNote, onAddCategory, ch
 };
 
 return (
-  <div className="container overflow-auto" style={{ maxHeight: '90vh', paddingLeft: '4rem' }}>
-    {/* Button group for side menu options */}
+<>
+    {/* New container for the buttons */}
+    <div className="container overflow-auto" style={{ maxHeight: '90vh' }}>
+      {/* Button group for side menu options */}
+      <div className="d-flex justify-content-center">
     <div className="btn-group" role="group" aria-label="New Note Buttons">
+    
         {/* NEW NOTE BUTTON */}
       <button 
         className="btn btn-primary mb-3" 
@@ -45,7 +65,33 @@ return (
         title="New Category">
           <i className="bi bi-folder-plus"></i>
       </button>
+<button 
+      className="btn btn-primary mb-3" 
+      onClick={() => setSortMethod("alphabetical")} 
+      title="Sort Alphabetically">
+        <i class="bi bi-sort-alpha-down"></i>
+    </button>
+    <button 
+      className="btn btn-primary mb-3" 
+      onClick={() => setSortMethod("dateModified")} 
+      title="Sort by Date Modified">
+        <i class="bi bi-sort-down"></i>
+    </button>
+
+
+
+</div>
+      </div>
     </div>
+
+
+  <div className="container overflow-auto" style={{ maxHeight: '90vh', paddingLeft: '4rem' }}>
+   
+    
+    
+
+  
+    
       
       {/* Loop through categories and display notes */}
       {categories.map((category, index) => (
@@ -83,6 +129,7 @@ return (
         </div>
       ))}
   </div>
+  </>
 );
 };
 

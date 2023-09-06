@@ -2,7 +2,7 @@ import DraggableListItem from './DraggableListItem';
 import Category from './Category';
 import React, { useState } from 'react';
 
-const SideMenu = ({ notes, categories, onNoteClick, onAddNote, onAddCategory, changeNoteCategory }) => {
+const SideMenu = ({ notes, categories, onNoteClick, onAddNote, onAddCategory, changeNoteCategory, deleteNote }) => {
   
   const [sortMethod, setSortMethod] = useState("alphabetical");
   // Use 'reduce' to group notes by their category for easier rendering later.
@@ -117,6 +117,7 @@ return (
                   note={note} 
                   onNoteClick={onNoteClick} 
                   changeNoteCategory={changeNoteCategory}
+                  deleteNote={deleteNote}
                 />
               ))
             ) : (

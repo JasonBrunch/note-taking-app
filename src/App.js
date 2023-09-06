@@ -25,8 +25,11 @@ function App() {
  
 
 
-
-    
+  const deleteNote = (noteID) => {
+    setNotes(prevNotes => prevNotes.filter(note => note.id !== noteID));
+    console.log("NOTE DELETED");
+  };
+  
 
   const handleNoteClick = (note) => {
     setActiveNote(note);
@@ -89,6 +92,7 @@ function App() {
             onAddNote={addNewNote}
             onAddCategory={addNewCategory}
             changeNoteCategory={changeNoteCategory} 
+            deleteNote={deleteNote}
         />
           </React.StrictMode>
           </div>

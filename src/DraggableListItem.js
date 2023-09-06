@@ -1,7 +1,16 @@
-import React from 'react';
 
-const DraggableListItem = ({ note, onNoteClick, changeNoteCategory }) => {
-    console.log("Rendering DraggableListItem");
+import React, { useState } from 'react';
+
+const DraggableListItem = ({ note, onNoteClick, changeNoteCategory,deleteNote }) => {
+    const [isHovered, setIsHovered] = useState(false);
+
+    const handleMouseEnter = () => {
+        setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+        setIsHovered(false);
+    };
     const handleDragStart = (e) => {
         console.log("Drag Start");
         e.dataTransfer.setData('noteId', note.id);
@@ -21,19 +30,38 @@ const DraggableListItem = ({ note, onNoteClick, changeNoteCategory }) => {
             changeNoteCategory(note.id, newCategory);
         }
     };
+    const handleDeleteClick = (e) => {
+        e.stopPropagation();
+        deleteNote(note.id);
+    };
+
     return (
         <li 
             draggable
-            style={{ listStyleType: 'none', paddingLeft: '0.75em' }}//Added padding to line up with icons
+            style={{ 
+                listStyleType: 'none', 
+                paddingLeft: '0.75em', 
+                display: 'flex',
+                justifyContent: 'space-between' 
+            }}
             onClick={() => onNoteClick(note)}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
             onDragStart={handleDragStart}
             onDragOver={handleDragOver}
             onDrop={handleDrop}
         >
             {note.title}
+            {isHovered && (
+                <i 
+                    className="bi bi-trash" 
+                    onClick={handleDeleteClick}
+                    title="Delete note"
+                    style={{ cursor: 'pointer' }}
+                ></i>
+            )}
         </li>
     );
 };
-
 
 export default DraggableListItem;
